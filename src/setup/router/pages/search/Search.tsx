@@ -2,7 +2,7 @@ export const Search = () => {
   return (
     <>
       <div className="container animate__animated animate__fadeIn animate__faster">
-        <h1>Search</h1>
+        <h1 className="display-4">Search</h1>
         <hr />
 
         <div className="row">
