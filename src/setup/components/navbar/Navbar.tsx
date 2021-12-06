@@ -1,60 +1,26 @@
 import "./navbar.scss";
-import logo from "../../../logo.svg";
 import "../../shared/scss/_variables.scss";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { routes } from "../../router/routes";
 
 export const Navbar = () => {
-  //   const navigate = useNavigate();
-
-  //   const handleLogout = () => {
-  //     navigate("/login", {
-  //       replace: true,
-  //     });
-  //   };
   return (
     <>
       <div className="cont-barra">
         <ul>
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                "nav-item nav-link " + (isActive ? "clicked-active" : "")
-              }
-              to="/home"
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={({ isActive }) =>
-                "nav-item nav-link " + (isActive ? "clicked-active" : "")
-              }
-              to="/gnomes"
-            >
-              Gnomes
-            </NavLink>
-          </li>
-          <li>
-          <NavLink
-              className={({ isActive }) =>
-                "nav-item nav-link " + (isActive ? "clicked-active" : "")
-              }
-              to="/search"
-            >
-              Search
-            </NavLink>
-          </li>
-          <li>
-          <NavLink
-              className={({ isActive }) =>
-                "nav-item nav-link " + (isActive ? "clicked-active" : "")
-              }
-              to="/about"
-            >
-              About
-            </NavLink>
-          </li>
+          {routes.map(({ to, name, showOnNavBar }) => (
+            showOnNavBar &&
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  "nav-item nav-link " + (isActive ? "clicked-active" : "")
+                }
+                to={to}
+              >
+                {name}
+              </NavLink>
+            </li>
+          ))}
         </ul>
       </div>
     </>

@@ -1,21 +1,24 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Home, About, Search, Gnomes, Gnome  } from "./pages";
-import { Navbar } from "../components/navbar/Navbar";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
+import { Navbar } from "../components";
+import { routes } from "./routes";
+import { AllBrastlewarkProvider } from "../context/AllBrastlewarkProvider";
 
 export const AppRouter = () => {
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/home" element={<Home/>} />
-          <Route path="/gnomes" element={<Gnomes/>} />
-          <Route path="gnome/:id" element={<Gnome/>} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/search" element={<Search/>} />
-          <Route path="/*" element={<Home/>} />
-        </Routes>
-      </BrowserRouter>
+      <AllBrastlewarkProvider>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            {routes.map(({ to, path, Component }) => (
+              <Route key={to} path={path} element={<Component />} />
+            ))}
+            <Route path="/*" element={<Navigate to={routes[0].to} replace />} />
+            {/* <Route path="gnome/:id" element={<Gnome/>} /> */}
+            {/* <Route key="default" path="/*" element={<Home/>} /> */}
+          </Routes>
+        </BrowserRouter>
+      </AllBrastlewarkProvider>
     </>
   );
 };

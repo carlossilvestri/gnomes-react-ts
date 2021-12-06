@@ -1,7 +1,10 @@
-import logo from "../../../../logo.svg";
-import { Card } from "../../../components/card/Card";
+import { useContext, useEffect, useState } from "react";
+import { Card, Loading } from "../../../components";
+import { AllBrastlewark, Brastlewark } from '../../../interfaces/brastlewark-requests.interface';
+import { AllBrastlewarkContext } from '../../../context/AllBrastlewarkContext';
 
 export const Gnomes = () => {
+  const { allBrastlewark, loading } = useContext(AllBrastlewarkContext);
   return (
     <>
       <div className="container animate__animated animate__fadeIn">
@@ -9,8 +12,15 @@ export const Gnomes = () => {
           Gnomes<small> at Brastlewark</small>
         </h1>
         <hr />
-        <div className="row row-cols-1 row-cols-md-3 g-4">
-          <Card/>
+        <div className="card-columns">
+          {
+            loading ? ( <Loading/> ) : 
+            (
+              allBrastlewark?.Brastlewark.map( (brastlewark : Brastlewark) => (
+                <Card {...brastlewark} key={`card-brastlewark-${brastlewark.id}`}/>
+              ))
+            )
+          }
         </div>
       </div>
     </>
